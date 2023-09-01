@@ -1,6 +1,6 @@
 # Use Amplify Enterprise Marketplace to Identify Duplicate APIs
 
-This code supports the article: [link here]
+This code supports the article: [Art of the possible: reduce duplicate APIs with Amplify Enterprise Marketplace](https://blog.axway.com/product-insights/amplify-platform/enterprise-marketplace/reduce-duplicate-apis)
 
 Setup:
 
