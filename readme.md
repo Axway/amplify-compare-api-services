@@ -1,4 +1,4 @@
-# Use Amplify Enterprise Marketplace to Identify Duplicate APIs
+# Use Amplify Enterprise Marketplace to Compare API Specification
 
 This code supports the article: [Art of the possible: reduce duplicate APIs with Amplify Enterprise Marketplace](https://blog.axway.com/product-insights/amplify-platform/enterprise-marketplace/reduce-duplicate-apis)
 
@@ -12,9 +12,27 @@ Execution:
 1. Clone this repo
 2. Modify `collect-services.sh` per the setup instructions above
 3. Execute the `collect-services.sh` script. depending on the number of APIs in your Service Registry, this may take some time. The script will create two directories containing the list of discovered APIs and their related API Specifications.
-4. Execute `compare.py` to run the comparison. It will use the API specifications stored in the apispecs folder, so it can be re-run without having to read the Service Registry every time.
 
 If you want to referesh the known API specifications then delete the service-docs and api-services folders and run the `collect-services.sh` script again.
+
+## Use cases
+### Search for Similar APIs
+
+Execute `compare.py` to run the comparison using the API specifications stored in the apispecs folder. This will generate a heat map depicting the relative similarities of all discovered APIs.
+
+### Suggest API Asset groupings
+
+Execute `compareSchemas.py` to run the comparison using the API specifications stored in the apispecs folder. This will compare the "schemas" section in the discovered specifications and look for similarities. This example will suggest grouping all APIs which potentially deal with the same data. The code can be adjusted to compare different attributes by modifying the appropriate section to look for the attribute you are interested in.
+
+~~~
+with open(os.path.join(directory, filename), 'r') as file:
+                spec = json.load(file)
+                # Extract and preprocess the schema section
+                schema_section = json.dumps(spec.get("components", {}).get("schemas", {}), sort_keys=True)
+                specs[filename] = schema_section
+~~~
+
+## Notes
 
 Your python environment must contain the libraries for:
 * numpy
